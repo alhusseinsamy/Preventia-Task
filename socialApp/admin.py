@@ -9,7 +9,7 @@ class CommentInline(admin.TabularInline):
 
 @admin.register(models.Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('id', 'normal_user', 'title', 'description', 'likes_count', 'created_at')
+    list_display = ('normal_user', 'title', 'description', 'likes_count', 'created_at')
     inlines = [CommentInline,]
 
 @admin.register(models.Comment)
