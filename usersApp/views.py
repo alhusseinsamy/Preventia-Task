@@ -33,7 +33,13 @@ class Login(ObtainAuthToken):
         token, created = Token.objects.get_or_create(user=user)
         return Response({
             'token': token.key,
-            'user_id': user.pk,
+            'user': {
+                'id': user.normaluser.id,
+                'username': user.normaluser.username,
+                'first_name': user.normaluser.first_name,
+                'last_name': user.normaluser.last_name,
+                'email': user.normaluser.email
+            },
             'email': user.email
         })
 

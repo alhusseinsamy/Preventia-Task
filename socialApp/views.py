@@ -15,6 +15,13 @@ class PostViewSet(viewsets.ModelViewSet):
     ordering_fields = ['title', 'id', 'created_at']
     filterset_fields = ['normal_user',]
     pagination_class = paginations.StandardResultsSetPagination
+
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return serializers.PostGetSerializer
+        if self.action == 'retrieve':
+            return serializers.PostGetSerializer
+        return self.serializer_class
     
     def create(self, request, *args, **kwargs):
         for key in ['user']:
@@ -30,6 +37,13 @@ class CommentViewSet(viewsets.ModelViewSet):
     queryset = models.Comment.objects.all()
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['post',]
+
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return serializers.CommentGetSerializer
+        if self.action == 'retrieve':
+            return serializers.CommentGetSerializer
+        return self.serializer_class
     
     def create(self, request, *args, **kwargs):
         for key in ['user']:
